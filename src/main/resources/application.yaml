@@ -1,0 +1,55 @@
+server:
+  port: 80
+
+#  servlet:
+#    context-path: /syning    # 应用路径上下文
+
+spring:
+  application:
+    name: syning-blog
+  mvc:
+    static-path-pattern: /res/**
+
+
+  freemarker:
+    # 设置模板后缀名
+    suffix: .ftl
+    # 设置文档类型
+    content-type: text/html
+    # 设置页面编码
+    charset: utf-8
+    # 设置页面缓存
+    cache: true
+
+#    settings:
+#      datetime_format: yyyy-MM-dd HH:mm:ss
+#      number_format: 0.##
+#    template-loader-path:      在include标签中会自动写 /templates，注释掉手动写
+#      - classpath:/templates
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/syning_blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+    username: root
+    password: syning
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+
+  # 实体类别名
+  type-aliases-package: com.syning.entity
+  # 配置
+  configuration:
+
+    call-setters-on-nulls: false    # 如果查询语句中某些字段是null，就不会返回，false关闭
+
+  mapper-locations: classpath:mapper/**/*.xml
+
+
+
+
+
+logging:
+  level:
+    root: info
+    com.syning.mapper: debug
