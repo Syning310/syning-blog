@@ -21,6 +21,17 @@ CREATE TABLE t_article (
 
 
 
+# 文章类型
+CREATE TABLE t_article_type (
+                              article_type_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT'文章分类id',
+                              article_type_parent_id INT DEFAULT NULL COMMENT'文章分类父id',
+                              article_type_name VARCHAR(45) NOT NULL DEFAULT'default' COMMENT'文章分类名称',
+                              article_type_sort INT NOT NULL DEFAULT 0 COMMENT'分类排序，越小排前面',
+                              article_type_add_time DATETIME COMMENT'添加时间');
+
+
+
+
 # 文章标签
 CREATE TABLE t_article_tag (
 	article_tag_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT'文章标签id',
@@ -82,8 +93,8 @@ CREATE TABLE t_ad (
 	ad_begin_time DATETIME COMMENT'广告开始时间',
 	ad_end_time DATETIME COMMENT'广告结束时间',
 	ad_add_time DATETIME COMMENT'广告添加时间');
-	
-	
+
+
 
 
 # 广告类型

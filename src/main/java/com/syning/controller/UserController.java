@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.syning.dto.user.UserDTO;
 import com.syning.dto.user.UserListPageDTO;
 import com.syning.entity.TArticle;
 import com.syning.entity.TUser;
@@ -16,6 +17,7 @@ import com.syning.service.ITArticleService;
 import com.syning.service.ITUserService;
 import com.syning.utils.CommonPage;
 import com.syning.utils.CommonResult;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +38,32 @@ public class UserController {
 
 
     /**
-     *  删除用户
+     *  用户修改
+     * @param userDTO
+     * @return
+     */
+    @PostMapping("/update")
+    @ResponseBody
+    public CommonResult userUpdate(UserDTO userDTO) {
+
+        TUser user = new TUser();
+
+        // 将相同数据拷贝走，id 和 要修改的用户名
+        BeanUtils.copyProperties(userDTO, user);
+
+        boolean boolUpdate = userService.updateById(user);
+
+        if (boolUpdate) {
+            return CommonResult.success("修改成功");
+        }
+
+        return CommonResult.failed("修改失败");
+    }
+
+
+    /**
+     * 删除用户
+     *
      * @param userId
      * @return
      */
@@ -70,7 +97,8 @@ public class UserController {
 
 
     /**
-     *  显示分页
+     * 显示分页
+     *
      * @param userListPageDTO
      * @param model
      * @return
@@ -89,7 +117,7 @@ public class UserController {
         IPage<TUser> userPage = new Page<>(pageNumber, pageSize);
 
         // 按照创建时间进行排序
-        LambdaQueryWrapper<TUser> userLambdaQueryWrapper =  Wrappers.<TUser>lambdaQuery().orderByDesc(TUser::getUserRegisterTime);
+        LambdaQueryWrapper<TUser> userLambdaQueryWrapper = Wrappers.<TUser>lambdaQuery().orderByDesc(TUser::getUserRegisterTime);
 
 
         // 如果前台有传输 userName 来做查询
@@ -107,7 +135,6 @@ public class UserController {
 
         return "admin/userList";
     }
-
 
 
 }

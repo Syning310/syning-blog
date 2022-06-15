@@ -1,0 +1,105 @@
+
+// jquery选择根据单选框value选中回显
+$(':radio[name="userFrozen"][value=' + userFrozen + ']').prop('checked', 'checked');
+
+
+// 找到radio单选框选中的值
+let userFrozen = $('input[name="userFrozen"]:checked').val();
+
+
+
+// 分页前端代码
+    <div class="panel">
+        <div class="panel-body" style="padding: 0;">
+            <div class="col-sm-12" style="padding: 0;text-align: center;">
+                <ul class="pager" style="margin-top: 10px;margin-bottom: 10px;">
+                    <#--                    跳转到第一页          -->
+                    <li class="previous" onclick="getNewData(1)">
+                        <a href="javascript:void(0)"><i class="icon-step-backward"></i></a>
+                    </li>
+
+                    <#--                    当前页小于等于 1 时，则按钮失效    -->
+                    <#if userPage.pageNumber lte 1>
+                        <li class="previous disabled">
+                            <a href="javascript:void(0)"><i class="icon-chevron-left"></i></a>
+                        </li>
+                    <#else>
+                    <#--                            传入当前页面 -1 的页数         -->
+                        <li class="previous" onclick="getNewData('${userPage.pageNumber-1}')">
+                            <a href="javascript:void(0)"><i class="icon-chevron-left"></i></a>
+                        </li>
+
+
+                    <#--                        中间显示共多少页-->
+                    </#if>
+                    <li>
+                        <a href="javascript:void(0)" class="btn">
+                            ${userPage.pageNumber}页/共${userPage.totalPage}</a>
+                    </li>
+
+                    <#--                    如果当前页码大于等于总页码 按钮失效       -->
+                    <#if userPage.pageNumber gte userPage.totalPage>
+                        <li class="next disabled">
+                            <a href="javascript:void(0)"><i class="icon-chevron-right"></i></a>
+                        </li>
+
+                    <#--                        下一页传入当前页码 +1    -->
+                    <#else>
+                        <li class="next" onclick="getNewData('${userPage.pageNumber+1}')">
+                            <a href="javascript:void(0)"><i class="icon-chevron-right"></i></a>
+                        </li>
+
+
+                    <#--                        传入最后一页的页码           -->
+                    </#if>
+                    <li class="previous" onclick="getNewData('${userPage.totalPage}')">
+                        <a href="javascript:void(0)"><i class="icon-step-forward"></i></a>
+                    </li>
+
+                    <#--                        输入框             -->
+                    <li class="next">
+                        <a href="javascript:void(0)">
+                            <input type="number" id="renderPageNumber" maxlength="5"
+                                   style="width:50px;height: 20px;" oninput="value=value.replace(/[^\d]/g,'')">
+                        </a>
+                    </li>
+                    <#--                    跳转按钮            -->
+                    <li class="next">
+                        <a href="javascript:void(0)" onclick="renderPage()"
+                           style="padding-left: 2px;padding-right: 2px;">
+                            跳转
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    // 获取新数据
+    function getNewData(pageNumber) {
+        if (!checkNotNull(pageNumber)) {
+            pageNumber = 1;
+        }
+        window.location.href = "/user/list?pageNumber=" + pageNumber + "<#if (userName?? && userName?length>0)>&userName=${userName!}</#if>";
+    }
+
+    // 渲染页面
+    function renderPage() {
+        let renderPageNumber = $("#renderPageNumber").val();
+        if (!checkNotNull(renderPageNumber)) {
+            new $.zui.Messager('请输入跳转的页码!', {
+                type: 'warning',
+                placement: 'center'
+            }).show();
+            return;
+        }
+        let totalPage = '${userPage.totalPage}';
+        if (parseInt(renderPageNumber) > parseInt(totalPage)) {
+            renderPageNumber = totalPage;
+        }
+        getNewData(renderPageNumber);
+    }
+
+
+
+

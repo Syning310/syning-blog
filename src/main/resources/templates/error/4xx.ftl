@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<#include "../import/top.ftl">
 
-<h1>4xx</h1>
+<div class="panel">
+    <div class="panel-body">
 
-</body>
-</html>
+        <h3><i class="icon icon-bell-alt"></i>&nbsp; 4xx 这个页面飞走了~</h3>
+
+    </div>
+</div>
+
+
+<#include "../import/bottom.ftl">

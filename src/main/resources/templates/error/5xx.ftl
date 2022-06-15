@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<#include "../import/top.ftl">
 
-<h1>5xx</h1>
+<div class="panel">
+    <div class="panel-body">
 
-</body>
-</html>
+        <h3><i class="icon icon-coffee"></i>&nbsp; 5xx 服务器开小差了！</h3>
+
+
+    </div>
+</div>
+
+
+<#include "../import/bottom.ftl">

@@ -1,0 +1,5 @@
+
+// LocalDateTime
+LocalDateTime time = LocalDateTime.now();
+System.out.println(time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+

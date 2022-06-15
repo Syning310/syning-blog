@@ -14,7 +14,8 @@
     <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
     <script src="//cdn.bootcdn.net/ajax/libs/zui/1.10.0/js/zui.min.js"></script>
 
-
+<#--    引入自己的js文件       -->
+    <script src="/res/js/common.js"></script>
 
     <link rel="shortcut icon" href="/res/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/res/img/favicon.ico" type="image/x-icon">
@@ -50,25 +51,35 @@
             <div class="collapse navbar-collapse navbar-collapse-example">
                 <!-- 一般导航项目 -->
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">基础数据</a></li>
+                    <li class="active"><a href="/"><i class="icon icon-list-ol"></i> 基础数据</a></li>
                     <!-- 导航中的下拉菜单 -->
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">用户管理 <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-group"></i> 用户管理 <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/user/list">用户列表</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">文章管理 <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-th-list"></i> 文章管理 <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">文章列表</a></li>
+                            <li><a href="/article/type/list">文章类型</a></li>
+                            <li><a href="#">文章标签</a></li>
+                            <li><a href="#">文章</a></li>
                         </ul>
                     </li>
-                    <li class="active"><a href="#">友情链接</a></li>
-                    <li class="active"><a href="#">广告管理</a></li>
+                    <li class="active"><a href="#"><i class="icon icon-smile"></i> 友情链接</a></li>
+                    <li class="active"><a href="#"><i class="icon icon-dollar"></i> 广告管理</a></li>
+                </ul>
+
+
+
+                <!-- 右侧的导航项目 -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/"><i class="icon icon-signout"></i> 退出登录</a></li>
                 </ul>
 
             </div><!-- END .navbar-collapse -->
         </div>
     </nav>
+
 
