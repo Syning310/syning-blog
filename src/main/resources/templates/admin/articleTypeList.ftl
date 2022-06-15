@@ -6,7 +6,8 @@
         <div class="panel-body">
 
             <button type="button" class="btn btn-success" onclick="addArticleType()"
-                    style="margin-bottom: 20px">添加文章类型</button>
+                    style="margin-bottom: 20px">添加文章类型
+            </button>
 
 
             <table class="table">
@@ -57,21 +58,22 @@
     </div>
 
 
-<div class="panel">
-    <div class="panel-body" style="padding: 0;">
 
-        <#--    暂无数据的情况     -->
-        <#else>
+
+<#--    暂无数据的情况     -->
+<#else>
+
+    <div class="panel">
+        <div class="panel-body" style="padding: 0;">
             <div style="text-align: center;">
                 <h3><i class="icon icon-coffee"></i></h3>
                 <h3>暂无数据</h3>
             </div>
 
 
-        </#if>
+        </div>
     </div>
-</div>
-
+</#if>
 <#--    修改模态框-->
 <div id="articleTypeUpdateModal" class="modal fade">
     <div class="modal-dialog">
@@ -157,11 +159,11 @@
         let articleTypeNameAdd = $('#articleTypeNameAdd').val();  // 取出类型名称
         let articleTypeSortAdd = $('#articleTypeSortAdd').val();  // 取出类型排序
 
-        console.log('名称: ' + articleTypeNameAdd);
-        console.log('排序: ' + articleTypeSortAdd);
+        // console.log('名称: ' + articleTypeNameAdd);
+        // console.log('排序: ' + articleTypeSortAdd);
 
         if (!checkNotNull(articleTypeNameAdd)) {
-            zuiMsg('提示消息：出错了！请刷新页面重试');
+            zuiMsg('提示消息：添加类型名称不能为空!');
             return;
         }
 
@@ -180,7 +182,7 @@
                     $('#addArticleTypeModal').modal('hide');
 
                     // 设置定时器，弹出修改成功的标签后，1秒再刷新页面
-                    setInterval(function() {
+                    setInterval(function () {
                         location.reload();  // 刷新当前页面
                     }, 600)
 
@@ -234,13 +236,14 @@
                     }).show();
 
                     // 设置定时器，弹出修改成功的标签后，1秒再刷新页面
-                    setInterval(function() {
+                    setInterval(function () {
                         location.reload();  // 刷新当前页面
                     }, 600)
 
-                    return;
+                } else {
+                    zuiMsg(data.message);
                 }
-                zuiMsg(data.message);
+
             }
         );
 
@@ -271,7 +274,7 @@
 
     // 删除按钮
     function delArticleType(articleTypeId) {
-        if (!confirm('是否删除')) {
+        if (!confirm('是否删除类型')) {
             return;
         }
 
@@ -295,9 +298,9 @@
                     }).show();
 
                     // 设置定时器，弹出修改成功的标签后，1秒再刷新页面
-                    setInterval(function() {
+                    setInterval(function () {
                         location.reload();  // 刷新当前页面
-                    }, 300)
+                    }, 300);
 
                     return;
                 } else {

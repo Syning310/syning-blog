@@ -24,13 +24,11 @@ public class ArticleTypeDTO {
     /**
      * 文章分类名称
      */
-    @NotBlank(message = "文章分类名称 不能为空", groups = {AddArticleInterface.class})
     private String articleTypeName;
 
     /**
      * 分类排序，越小排前面
      */
-    @NotBlank(message = "文章分类排序 不能为空", groups = {AddArticleInterface.class})
     private Integer articleTypeSort;
 
 

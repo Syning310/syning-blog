@@ -2,8 +2,12 @@ package com.syning.controller;
 
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.syning.dto.article.ArticleTypeDTO;
+import com.syning.entity.TArticle;
 import com.syning.entity.TArticleType;
+import com.syning.service.ITArticleService;
 import com.syning.service.ITArticleTypeService;
 import com.syning.utils.CommonResult;
 import com.syning.vo.TArticleTypeVO;
@@ -27,6 +31,8 @@ public class ArticleTypeController {
     @Resource
     private ITArticleTypeService articleTypeService;
 
+    @Resource
+    private ITArticleService articleService;
 
     /**
      *  根据视图传来的id，删除articleType数据
@@ -36,6 +42,15 @@ public class ArticleTypeController {
     @PostMapping("/type/del")
     @ResponseBody
     public CommonResult articleTypeDel(Integer articleTypeId) {
+
+        // 首先判断该分类下的有没有文章
+        LambdaQueryWrapper<TArticle> eqWrapper = Wrappers.<TArticle>lambdaQuery().eq(TArticle::getArticleTypeId, articleTypeId);
+
+        int articleCount = articleService.count(eqWrapper);
+
+        if (articleCount > 0) {
+            return CommonResult.failed("请先删除该分类下的文章!");
+        }
 
         boolean delBool = articleTypeService.removeById(articleTypeId);
 

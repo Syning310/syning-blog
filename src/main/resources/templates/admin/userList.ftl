@@ -141,22 +141,20 @@
     </div>
 
 
-<div class="panel">
-    <div class="panel-body" style="padding: 0;">
+<#--    暂无数据的情况     -->
+<#else>
 
-        <#--    暂无数据的情况     -->
-        <#else>
+    <div class="panel">
+        <div class="panel-body" style="padding: 0;">
             <div style="text-align: center;">
                 <h3><i class="icon icon-coffee"></i></h3>
                 <h3>暂无数据</h3>
             </div>
 
 
-
-        </#if>
+        </div>
     </div>
-</div>
-
+</#if>
 <div id="userUpdateModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">

@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author jobob
- * @since 2022-06-14
+ * @since 2022-06-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -63,6 +63,11 @@ public class TArticle implements Serializable {
      * 收藏次数
      */
     private Integer articleCollectionNumber;
+
+    /**
+     * 文章类型id
+     */
+    private Integer articleTypeId;
 
 
 }

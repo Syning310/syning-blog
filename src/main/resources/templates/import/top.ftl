@@ -63,7 +63,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-th-list"></i> 文章管理 <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/article/type/list">文章类型</a></li>
-                            <li><a href="#">文章标签</a></li>
+                            <li><a href="/article/tag/list">文章标签</a></li>
                             <li><a href="#">文章</a></li>
                         </ul>
                     </li>
