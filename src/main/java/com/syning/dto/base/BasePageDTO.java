@@ -21,7 +21,7 @@ public class BasePageDTO {
     /**
      *  每页显示多少条数据，默认 20
      */
-    private Integer pageSize = 5;
+    private Integer pageSize = 20;
 
 
 }

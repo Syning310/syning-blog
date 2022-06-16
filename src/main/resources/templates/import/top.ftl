@@ -64,11 +64,11 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/article/type/list">文章类型</a></li>
                             <li><a href="/article/tag/list">文章标签</a></li>
-                            <li><a href="#">文章</a></li>
+                            <li><a href="/article/list">文章列表</a></li>
                         </ul>
                     </li>
-                    <li class="active"><a href="#"><i class="icon icon-smile"></i> 友情链接</a></li>
-                    <li class="active"><a href="#"><i class="icon icon-dollar"></i> 广告管理</a></li>
+                    <li class="active"><a href="/link/list"><i class="icon icon-smile"></i> 友情链接</a></li>
+                    <li class="active"><a href="/ad/list"><i class="icon icon-dollar"></i> 广告管理</a></li>
                 </ul>
 
 

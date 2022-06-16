@@ -129,6 +129,7 @@ public class UserController {
 
 
         model.addAttribute("userPage", CommonPage.restPage(userIPage));
+        
 
         return "admin/userList";
     }

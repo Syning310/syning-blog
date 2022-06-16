@@ -12,3 +12,5 @@ function zuiMsg(msg) {
         placement: 'center'
     }).show();
 }
+
+
