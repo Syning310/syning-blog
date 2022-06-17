@@ -67,8 +67,12 @@
                             <li><a href="/article/list">文章列表</a></li>
                         </ul>
                     </li>
+
+
                     <li class="active"><a href="/link/list"><i class="icon icon-smile"></i> 友情链接</a></li>
-                    <li class="active"><a href="/ad/list"><i class="icon icon-dollar"></i> 广告管理</a></li>
+
+                    <li class="active"><a href="/ad/list"><i class="icon icon-dollar"></i> 广告管理 </a></li>
+
                 </ul>
 
 

@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author jobob
@@ -45,9 +45,9 @@ public class TAd implements Serializable {
     private String adUrl;
 
     /**
-     * 广告排序，越小排在前面
+     * 广告排序，越小排在前面，修改为跳转的url
      */
-    private Integer adSort;
+    private String adSort;
 
     /**
      * 广告开始时间
