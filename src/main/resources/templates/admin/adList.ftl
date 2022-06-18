@@ -26,6 +26,9 @@
                 <button type="button" onclick="sendUpdate()" class="btn btn-mini"
                         style="position: relative; right: -10px;">提交
                 </button>
+                <button type="button" onclick="sendAdd()" class="btn btn-mini"
+                        style="position: relative; right: -10px;">添加
+                </button>
             </div>
 
         </form>
@@ -74,10 +77,12 @@
             <div class="form-group">
                 <label for="exampleInputAccount4" class="col-sm-2">广告类型:</label>
                 <div class="col-sm-3">
-                    <select class="form-control" id="addAdTypeId" name="adType">
+
+                    <select class="form-control" id="addAdType" name="adType">
                         <#if adTypeList?? && adTypeList?size gt 0>
                             <#list adTypeList as adType>
-                                <option>${(adType.adTypeTitle)!}</option>
+                                <option>${(adType.adTypeId)}.${(adType.adTypeTitle)!}</option>
+
                             </#list>
 
                         <#else>
@@ -174,13 +179,13 @@
 
                             <button type="button" class="btn btn-mini"
                                     onclick="updateAd(${(ad.adId)!},
-                                            '${(ad.adTypeTitle)!}',
+                                            '${(ad.adType)}.${(ad.adTypeTitle)!}',
                                             '${(ad.adTitle)!}',
                                             '${(ad.adUrl)!}',
                                             '${(ad.adSort)!}',
                                             '${(ad.adBeginTime)!}',
                                             '${(ad.adEndTime)!}')"
-                            ><i class="icon icon-remove"></i>编辑
+                            ><i class="icon icon-undo"></i>编辑
                             </button>
 
                             <button type="button" class="btn btn-mini" onclick="delAd(${ad.adId})">
@@ -205,6 +210,29 @@
 
 <script type="text/javascript">
 
+
+    function sendAdd() {
+        let adTypeTitle = $('#adTypeTitleUpdate').val();
+        let adTypeTag = $('#adTypeTagUpdate').val();
+
+        console.log(adTypeTitle);
+        console.log(adTypeTag);
+
+        if (!checkNotNull(adTypeTitle) || !checkNotNull(adTypeTag)) {
+            zuiMsg('请完善参数!');
+            return;
+        }
+
+        $.post('/ad/type/addOrUpdate', {
+            adTypeTitle: adTypeTitle,
+            adTypeTag: adTypeTag
+        }, function (data) {
+            resolveRep(data);
+        });
+
+    }
+
+
     function addAd() {
         $('#addAdId').val("")
         $('#addAdTypeId').val("");
@@ -219,7 +247,11 @@
     function sumbitAd() {
 
         let adId = $('#addAdId').val();
-        let adType = $('#addAdTypeId').val();
+        let adType = $('#addAdType').val();
+        // 截取字符串
+        let str = adType.split('.');
+        adType = str[0];    // adTypeId
+
         let adTitle = $('#addAdTitle').val();
         let adUrl = $('#addAdUrl').val();
         let adSort = $('#addAdSort').val();
@@ -238,6 +270,7 @@
 
         // 添加请求
         if (!checkNotNull(adId)) {
+            console.log('add');
 
             $.post('/ad/addOrUpdate', {
                 adType: adType,
@@ -317,7 +350,7 @@
     function updateAd(adId, adType, adTitle, adUrl, adSort, adBeginTime, adEndTime) {
 
         $('#addAdId').val(adId);
-        $('#addAdTypeId').val(adType);
+        $('#addAdType').val(adType);
         $('#addAdTitle').val(adTitle);
         $('#addAdSort').val(adSort);
         $('#addAdUrl').val(adUrl);

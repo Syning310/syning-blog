@@ -49,14 +49,16 @@ public class AdController {
      */
     @PostMapping("/addOrUpdate")
     @ResponseBody
-    public CommonResult adAddOrUpdate(AdVO adVO, String beginTime, String endTime) {
+    public CommonResult adAddOrUpdate(AdVO adVO,
+                                      @RequestParam("beginTime") String beginTime,
+                                      @RequestParam("endTime") String endTime) {
 
         TAd ad = new TAd();
         BeanUtils.copyProperties(adVO, ad);
 
         if (beginTime != null && endTime != null) {
             // 转换成日期
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
             LocalDateTime begin = LocalDateTime.parse(beginTime, dateTimeFormatter);
             LocalDateTime end = LocalDateTime.parse(endTime, dateTimeFormatter);

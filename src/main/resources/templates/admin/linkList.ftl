@@ -104,7 +104,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span
                                 aria-hidden="true">×</span><span
                                 class="sr-only">关闭</span></button>
-                    <h4 class="modal-title">修改友情链接</h4>
+                    <h4 class="modal-title">修改链接</h4>
                 </div>
                 <div class="modal-body">
 
@@ -150,7 +150,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span
                                 aria-hidden="true">×</span><span
                                 class="sr-only">关闭</span></button>
-                    <h4 class="modal-title">修改友情链接</h4>
+                    <h4 class="modal-title">修改链接</h4>
                 </div>
                 <div class="modal-body">
 
