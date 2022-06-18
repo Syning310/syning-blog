@@ -3,10 +3,50 @@
 
 <div class="panel col-sm-2">
 
+    <h5><i class="icon icon-tags"></i>标签</h5>
+
+    <style>
+        .labelDiv {
+
+            cursor: pointer;
+
+        }
+    </style>
+
     <div class="panel-body" style="padding: 0;">
 
-        贴标签
+        <#--           文章的 id   -->
+        <input type="hidden" id="articleId" value="${articleVO.articleId}">
+
+        <#--            亮起的标签   -->
+        <#list upTagVO as upTag>
+            <div id="${upTag.tagId}" class="labelDiv label label-info"><span>${upTag.tagName}</span></div>
+        </#list>
+
+        <#--            不亮起的标签      -->
+        <#list noTagVO as noTag>
+            <div id="${noTag.tagId}" class="labelDiv label"><span>${noTag.tagName}</span></div>
+        </#list>
+
     </div>
+
+    <script>
+        // label-info
+        let labels = $('.labelDiv');
+
+        for (let i = 0; i < labels.length; ++i) {
+            let lab = labels[i];
+            lab.addEventListener('click', function () {
+                lab.classList.toggle('label-info');
+
+            });
+
+        }
+
+
+
+
+    </script>
 
 
 </div>
@@ -16,13 +56,13 @@
 
 
     <div class="panel-body">
-        <button type="button" class="btn btn-success pull-right" onclick="sendSaveArticle()">发送</button>
+        <button type="button" class="btn btn-success pull-right" onclick="sendUpdateArticle()">修改</button>
         <br>
         <hr>
 
         <label for="addAdTitle" class="col-sm-1">标题:</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" id="artcileTitle" placeholder="标题">
+            <input type="text" class="form-control" id="artcileTitle" value="${articleVO.articleTitle}" placeholder="标题">
         </div>
 
         <label for="exampleInputAccount4" class="col-sm-1">类型:</label>
@@ -44,6 +84,11 @@
 
 
     </div>
+
+    <script>
+        let articleType = '${articleVO.articleTitle!}';
+        $('#articleType').val(articleType);
+    </script>
 
 
     <div class="panel-body">
@@ -85,7 +130,8 @@
     const editor = createEditor({
         selector: '#editor-container',
         config: editorConfig,
-        mode: 'simple' // 或 'simple' 'default' 参考下文
+        mode: 'simple', // 或 'simple' 'default' 参考下文
+        html: '${articleVO.articleCentext}'
     })
 
     // 创建工具栏
@@ -97,16 +143,20 @@
     })
 
 
-    function sendSaveArticle() {
 
+
+    function sendUpdateArticle() {
+
+        // 获取文章的id
+        let articleId = $('#articleId').val();
 
         // 获取文章标题
-        let articleTitle = $('#artcileTitle').val();
+        let articleTitle = $('#articleTitle').val();
 
         // 获取富文本编辑器中的内容
         let articleCentext = editor.getHtml();
 
-        // 获取选中的文章类型id
+        // 获取选中的文章类型名称
         let articleTypeName = $('#articleType').val();
 
         // 如果选中了无选择，则置为空
@@ -114,16 +164,22 @@
             articleTypeName = null;
         }
 
-        let article = {
-            'articleTitle': articleTitle,
-            'articleCentext': articleCentext,
-            'articleTypeName': articleTypeName
+        // 收集选中的所有点亮的 tag 标签，添加到数据库
+        let labels = $('.label-info');      // 获取所有点亮的标签
+        let tagList = [];                   // 数组
+        for (let i = 0; i < labels.length; ++i) {
+
+            tagList.push(Number(labels[i].id));     // 将点亮的标签的 id 添加进数组
         }
 
 
-        console.log(articleTitle);
-        console.log(articleCentext);
-        console.log(articleTypeName);
+        let article = {
+            'articleId': articleId,
+            'articleTitle': articleTitle,
+            'articleCentext': articleCentext,
+            'articleTypeName': articleTypeName,
+            'articleTagList': tagList
+        }
 
         let request = JSON.stringify(article);
 
@@ -134,7 +190,13 @@
             contentType: 'application/json;charset=UTF-8',
             dataType: 'json',
             success: function (data) {
-                resolveRep(data)
+
+                resolveRep(data);
+
+                setInterval(function() {
+                    window.location.href= '/article/list';
+                }, 300);
+
             },
             error: function (data) {
                 zuiMsg(data.message);
@@ -142,7 +204,6 @@
         });
 
     }
-
 
 </script>
 

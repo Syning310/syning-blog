@@ -26,23 +26,28 @@ public class TArticleServiceImpl extends ServiceImpl<TArticleMapper, TArticle> i
     @Resource
     private TArticleMapper articleMapper;
 
+
+    @Override
+    public boolean updateByArticleVO(ArticleVO articleVO) {
+        return articleMapper.updateByArticleVO(articleVO);
+    }
+
+    @Override
+    public ArticleVO getArticleVOById(Integer articleId) {
+        return articleMapper.getArticleVO(articleId);
+    }
+
     /**
      * 保存文章内容到数据库
      * @return
      */
     @Override
-    @Transactional
-    public CommonResult saveArticle(ArticleVO article) {
+    public boolean saveArticle(ArticleVO article) {
 
         // 保存到数据库
         boolean saveBool = articleMapper.saveArticle(article);
 
-        if (saveBool) {
-            return CommonResult.success("保存成功!");
-        } else {
-
-            return CommonResult.failed("保存失败!");
-        }
+        return saveBool;
     }
 
     /**

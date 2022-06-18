@@ -113,4 +113,8 @@ public class CommonResult<T> {
     public static <T> CommonResult<T> validateFailed(String message) {
         return new CommonResult<T>(1000, message, null);
     }
+
+    public  static <Type> CommonResult<Type> successWithDate(String message, Type data) {
+        return new CommonResult<Type>(200, message, data);
+    }
 }

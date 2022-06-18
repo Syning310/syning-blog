@@ -16,11 +16,27 @@ import com.syning.vo.ArticleVO;
  */
 public interface ITArticleService extends IService<TArticle> {
 
+
+    /**
+     *  修改信息
+     * @param articleVO
+     * @return
+     */
+    boolean updateByArticleVO(ArticleVO articleVO);
+
+    /**
+     *  通过文章id获取vo
+     * @param articleId
+     * @return
+     */
+    ArticleVO getArticleVOById(Integer articleId);
+
+
     /**
      *  保存文章内容到数据库
      * @return
      */
-    CommonResult saveArticle(ArticleVO article);
+    boolean saveArticle(ArticleVO article);
 
 
     /**

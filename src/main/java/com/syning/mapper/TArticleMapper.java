@@ -17,14 +17,34 @@ import org.apache.ibatis.annotations.Param;
 public interface TArticleMapper extends BaseMapper<TArticle> {
 
     /**
+     *  根据 articleVO 修改
+     * @param articleVO
+     * @return
+     */
+    boolean updateByArticleVO(ArticleVO articleVO);
+
+
+    /**
      *  文章列表
      * @param articlePage
      * @param articleTitle
      */
     IPage<ArticleVO> articleList(@Param("articlePage") IPage<ArticleVO> articlePage, @Param("articleTitle") String articleTitle);
 
-
+    /**
+     *  保存
+     * @param article
+     * @return
+     */
     boolean saveArticle(ArticleVO article);
+
+
+    /**
+     *  根据文章的 id 获取ArticleVO对象
+     * @param articleId
+     * @return
+     */
+    ArticleVO getArticleVO(Integer articleId);
 
 
 }

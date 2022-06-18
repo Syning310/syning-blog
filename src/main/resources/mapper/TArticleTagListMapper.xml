@@ -2,4 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syning.mapper.TArticleTagListMapper">
 
+    <resultMap id="BaseTagVO" type="com.syning.vo.TagVO">
+        <result column="article_tag_id" property="tagId" jdbcType="INTEGER"></result>
+        <result column="article_tag_name" property="tagName" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+
+<!--
+     /**
+     *  通过文章id，获取不应该亮起的标签
+     * @param articleId
+     * @return
+     */
+    List<TagVO> getNoTagVOById(Integer articleId);
+-->
+    <select id="getNoTagVOById" resultMap="BaseTagVO">
+        SELECT ta.article_tag_id, ta.article_tag_name
+        FROM t_article_tag ta
+        WHERE article_tag_id NOT IN (
+            SELECT tag.article_tag_id
+            FROM t_article_tag tag LEFT JOIN `t_article_tag_list` lst ON tag.article_tag_id = lst.article_tag_id
+            WHERE lst.article_id = #{articleId})
+    </select>
+
+
+<!--
+    /**
+     *  通过文章id，获取应该亮起的标签
+     * @param articleId
+     * @return
+     */
+    List<TagVO> getUpTagVOById(Integer articleId);
+-->
+    <select id="getUpTagVOById" resultMap="BaseTagVO">
+        SELECT tag.article_tag_id, article_tag_name
+        FROM t_article_tag tag LEFT JOIN `t_article_tag_list` lst ON tag.article_tag_id = lst.article_tag_id
+        WHERE lst.article_id = #{articleId}
+    </select>
+
+
+
+
+<!--
+    boolean saveAll(List<TArticleTagList> list);
+-->
+    <insert id="saveAll" parameterType="com.syning.entity.TArticleTagList">
+        insert into `t_article_tag_list` (article_id, article_tag_id) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.articleId},#{item.articleTagId})
+        </foreach>
+
+    </insert>
+
+
+
+
 </mapper>

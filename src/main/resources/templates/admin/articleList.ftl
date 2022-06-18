@@ -26,9 +26,8 @@
 <div class="panel">
     <div class="panel-body">
 
-        <button type="button" class="btn btn-mini"
-                onclick="openArticleTagAddModal()">添加文章
-        </button>
+        <a href="/article/publish" class="btn btn-mini">添加文章
+        </a>
         <hr/>
 
         <#if articleIPage?? && articleIPage.list?size gt 0>
@@ -61,8 +60,11 @@
                         <td>${(article.articleGoodNumber)!}</td>
                         <td>${(article.articleCollectionNumber)!}</td>
                         <td>
-                            <a target="_blank" class="btn btn-mini" href="/article/view/${(article.articleId)!}">
+                            <a class="btn btn-mini" href="/article/view/${(article.articleId)!}">
                                 <i class="icon icon-eye-open"></i>查看</a>
+
+                            <a class="btn btn-mini" href="/article/edit/${(article.articleId)!}">
+                                <i class="icon icon-edit-sign"></i>编辑</a>
 
                             <button onclick="delArticleById(${article.articleId})"
                                     type="button" class="btn btn-mini"><i class="icon icon-remove"></i>删除

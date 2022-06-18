@@ -1,14 +1,17 @@
 package com.syning.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.syning.entity.TArticleTag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,6 +23,7 @@ public class ArticleVO implements Serializable {
     /**
      * 文章id
      */
+    @TableId(value = "article_id", type = IdType.AUTO)
     private Integer articleId;
 
     /**
@@ -74,6 +78,12 @@ public class ArticleVO implements Serializable {
      */
     @JsonProperty(value = "articleTypeName")
     private String articleTypeName;
+
+
+    /**
+     *  添加文章时接收标签id
+     */
+    private List<Integer> articleTagList;
 
 
 }

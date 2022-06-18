@@ -5,6 +5,7 @@ import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.io.resource.ClassPathResource;
 import com.syning.entity.TUser;
 import com.syning.service.ITUserService;
+import org.apache.ibatis.annotations.Param;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,6 +14,8 @@ import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 public class test {
@@ -70,5 +73,26 @@ public class test {
 
     }
 
+
+    @Test
+    public void listRemove() {
+
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+        list1.add(4);
+        list1.add(5);
+
+        list2.add(2);
+        list2.add(3);
+
+
+        list1.removeAll(list2);
+        System.out.println(list1);
+
+    }
 
 }
