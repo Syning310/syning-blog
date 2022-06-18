@@ -41,4 +41,20 @@
     </select>
 
 
+
+
+<!--
+        boolean saveArticle(ArticleVO article);
+-->
+    <insert id="saveArticle">
+        INSERT INTO t_article (user_id, article_title, article_centext, article_type_id, article_add_time)
+        VALUES (#{userId}, #{articleTitle}, #{articleCentext},
+                (SELECT article_type_id FROM t_article_type WHERE article_type_name = #{articleTitle}),
+                #{articleAddTime});
+    </insert>
+
+
+
+
+
 </mapper>

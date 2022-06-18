@@ -24,4 +24,7 @@ public interface TArticleMapper extends BaseMapper<TArticle> {
     IPage<ArticleVO> articleList(@Param("articlePage") IPage<ArticleVO> articlePage, @Param("articleTitle") String articleTitle);
 
 
+    boolean saveArticle(ArticleVO article);
+
+
 }

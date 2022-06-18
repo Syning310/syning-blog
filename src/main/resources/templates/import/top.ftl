@@ -51,7 +51,7 @@
             <div class="collapse navbar-collapse navbar-collapse-example">
                 <!-- 一般导航项目 -->
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/"><i class="icon icon-list-ol"></i> 基础数据</a></li>
+                    <li class="active"><a href="/article/publish"><i class="icon icon-list-ol"></i> 发布文章</a></li>
                     <!-- 导航中的下拉菜单 -->
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-group"></i> 用户管理 <b

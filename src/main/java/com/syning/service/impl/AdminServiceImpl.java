@@ -39,6 +39,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         // 取出
         Admin adminDB = adminList.get(0);
 
+        admin.setId(adminDB.getId());
+
         // 拿数据库的用户的密码与视图输入的对比
         return Objects.equals(admin.getAdminPassword(), adminDB.getAdminPassword());
     }

@@ -2,6 +2,7 @@ package com.syning.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class ArticleVO implements Serializable {
     /**
      * 文章标题
      */
+    @JsonProperty(value = "articleTitle")
     private String articleTitle;
 
     /**
@@ -44,6 +46,7 @@ public class ArticleVO implements Serializable {
     /**
      * 文章内容
      */
+    @JsonProperty(value = "articleCentext")
     private String articleCentext;
 
     /**
@@ -69,6 +72,7 @@ public class ArticleVO implements Serializable {
     /**
      *  文章类型名称
      */
+    @JsonProperty(value = "articleTypeName")
     private String articleTypeName;
 
 

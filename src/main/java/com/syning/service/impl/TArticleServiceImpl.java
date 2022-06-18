@@ -5,8 +5,10 @@ import com.syning.entity.TArticle;
 import com.syning.mapper.TArticleMapper;
 import com.syning.service.ITArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.syning.utils.CommonResult;
 import com.syning.vo.ArticleVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -23,6 +25,25 @@ public class TArticleServiceImpl extends ServiceImpl<TArticleMapper, TArticle> i
 
     @Resource
     private TArticleMapper articleMapper;
+
+    /**
+     * 保存文章内容到数据库
+     * @return
+     */
+    @Override
+    @Transactional
+    public CommonResult saveArticle(ArticleVO article) {
+
+        // 保存到数据库
+        boolean saveBool = articleMapper.saveArticle(article);
+
+        if (saveBool) {
+            return CommonResult.success("保存成功!");
+        } else {
+
+            return CommonResult.failed("保存失败!");
+        }
+    }
 
     /**
      *  文章列表
