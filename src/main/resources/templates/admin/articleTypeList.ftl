@@ -1,15 +1,14 @@
 <#include "../import/top.ftl">
 
-<#if articleTypeList?? && articleTypeList?size gt 0>
 
-    <div class="panel">
-        <div class="panel-body">
+<div class="panel">
+    <div class="panel-body">
 
-            <button type="button" class="btn btn-success" onclick="addArticleType()"
-                    style="margin-bottom: 20px">添加文章类型
-            </button>
+        <button type="button" class="btn btn-success" onclick="addArticleType()"
+                style="margin-bottom: 20px">添加文章类型
+        </button>
 
-
+        <#if articleTypeList?? && articleTypeList?size gt 0>
             <table class="table">
                 <thead>
                 <tr>
@@ -53,27 +52,29 @@
 
             </table>
 
-        </div>
-
-    </div>
 
 
+        <#--    暂无数据的情况     -->
+        <#else>
+
+            <div class="panel">
+                <div class="panel-body" style="padding: 0;">
+                    <div style="text-align: center;">
+                        <h3><i class="icon icon-coffee"></i></h3>
+                        <h3>暂无数据</h3>
+                    </div>
 
 
-<#--    暂无数据的情况     -->
-<#else>
-
-    <div class="panel">
-        <div class="panel-body" style="padding: 0;">
-            <div style="text-align: center;">
-                <h3><i class="icon icon-coffee"></i></h3>
-                <h3>暂无数据</h3>
+                </div>
             </div>
+        </#if>
 
 
-        </div>
     </div>
-</#if>
+
+</div>
+
+
 <#--    修改模态框-->
 <div id="articleTypeUpdateModal" class="modal fade">
     <div class="modal-dialog">

@@ -27,10 +27,12 @@ spring:
 #    template-loader-path:      在include标签中会自动写 /templates，注释掉手动写
 #      - classpath:/templates
 
+# ?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+# rm-bp12i1d596pb4fdg4.mysql.rds.aliyuncs.com
   datasource:
-    url: jdbc:mysql://localhost:3306/syning_blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
-    username: root
-    password: syning
+    url: jdbc:mysql://rm-bp12i1d596pb4fdg4ko.mysql.rds.aliyuncs.com:3306/syning_blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
+    username: syning
+    password: Shangyining0310
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
 
@@ -52,4 +54,8 @@ mybatis-plus:
 logging:
   level:
     root: info
-    com.syning.mapper: debug
+    com.syning.mapper: info
+
+
+syning:
+  power: false
