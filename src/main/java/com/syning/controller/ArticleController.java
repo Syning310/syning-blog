@@ -6,15 +6,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.syning.dto.article.ArticlePageDTO;
 import com.syning.entity.*;
-import com.syning.service.ITArticleService;
-import com.syning.service.ITArticleTagListService;
-import com.syning.service.ITArticleTagService;
-import com.syning.service.ITArticleTypeService;
+import com.syning.service.*;
 import com.syning.utils.CommonPage;
 import com.syning.utils.CommonResult;
-import com.syning.vo.ArticleVO;
-import com.syning.vo.TArticleTypeVO;
-import com.syning.vo.TagVO;
+import com.syning.utils.TimeUtils;
+import com.syning.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
@@ -45,6 +41,68 @@ public class ArticleController {
     @Resource
     private ITArticleTagListService articleTagListService;
 
+    @Resource
+    private ITCommentService commentService;
+
+    @Resource
+    private ITCommentReplyService commentReplyService;
+
+
+    /**
+     *  跳转到文章展示页面
+     * @param model
+     * @param articleId
+     * @return
+     */
+    @GetMapping("/view/{articleId}")
+    public String viewArticle(Model model, @PathVariable("articleId") Integer articleId) {
+
+        // 获取所有标签放入模型
+        // 根据 articleId 获取文章，放入模型
+        // 获取与该文章有关联的 tagId 回显它
+
+        // 通过id，填充 ArticleVO 对象
+        ArticleVO articleVO = articleService.getArticleVOById(articleId);
+
+        // 获取应该亮起来的标签集合
+        List<TagVO> upTagVO = articleTagListService.getUpTagVO(articleId);
+
+        // 获取不亮起的标签集合
+        List<TagVO> noTagVO = articleTagListService.getNoTagVO(articleId);
+
+
+        // 通过文章id，获取所有评论
+        List<CommentVO> commentVOList = commentService.getCommentVOList(articleId);
+
+        for (CommentVO cmt : commentVOList) {
+
+            // 得到时差
+            cmt.setTimeEquation(TimeUtils.timeEquation(cmt.getCommentTime()));
+
+            // 根据评论的id，获得该评论的所有回复
+            List<ReplyVO> replyVOList = commentReplyService.getReplyVOList(cmt.getCommentId());
+
+            // 获取评论与现在的时差
+            for (ReplyVO reply : replyVOList) {
+                reply.setTimeEqt(TimeUtils.timeEquation(reply.getCommentReplyAddTime()));
+            }
+
+            // 将replyVOList集合设置到该条评论的属性中
+            cmt.setReplyVOList(replyVOList);
+
+        }
+
+
+
+
+        model.addAttribute("articleVO", articleVO);
+        model.addAttribute("upTagVO", upTagVO);
+        model.addAttribute("noTagVO", noTagVO);
+        model.addAttribute("commentVOList", commentVOList);
+
+        return "user/articleView";
+    }
+
 
     /**
      * 跳转到修改文章的页面，并且回显
@@ -53,7 +111,7 @@ public class ArticleController {
      * @param articleId
      * @return
      */
-    @GetMapping("/edit/{articleId}")
+    @GetMapping(value = {"/edit/{articleId}"})
     public String editArticle(Model model, @PathVariable("articleId") Integer articleId) {
 
         // 获取所有标签放入模型
@@ -150,6 +208,11 @@ public class ArticleController {
 
             // 获取当前登录的用户
             Admin admin = (Admin) session.getAttribute(AdminController.USER);
+
+            if (admin == null) {
+                return CommonResult.failed("当前未登录状态，无法发布文章!");
+            }
+
             // 设置发布用户的id
             article.setUserId(admin.getId());
             article.setArticleAddTime(LocalDateTime.now());

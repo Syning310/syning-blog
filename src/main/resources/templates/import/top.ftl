@@ -51,7 +51,17 @@
             <div class="collapse navbar-collapse navbar-collapse-example">
                 <!-- 一般导航项目 -->
                 <ul class="nav navbar-nav">
+                    <li class="active"><a href="/article/list"><i class="icon icon-th-list"></i> 文章列表</a></li>
                     <li class="active"><a href="/article/publish"><i class="icon icon-list-ol"></i> 发布文章</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-umbrella"></i></i>
+                            文章管理 <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/article/type/list">文章类型</a></li>
+                            <li><a href="/article/tag/list">文章标签</a></li>
+                        </ul>
+                    </li>
                     <!-- 导航中的下拉菜单 -->
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-group"></i> 用户管理 <b
@@ -60,16 +70,6 @@
                             <li><a href="/user/list">用户列表</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-th-list"></i>
-                            文章管理 <b class="caret"></b></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="/article/type/list">文章类型</a></li>
-                            <li><a href="/article/tag/list">文章标签</a></li>
-                            <li><a href="/article/list">文章列表</a></li>
-                        </ul>
-                    </li>
-
 
                     <li class="active"><a href="/link/list"><i class="icon icon-smile"></i> 收藏链接</a></li>
 
@@ -84,6 +84,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-cube-alt"></i> 系统 <b
                                     class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
+                            <li><a href="/admin/login"><i class="icon icon-location-arrow"></i> 登录用户</a></li>
                             <li><a onclick="openRestPwd()"><i class="icon icon-history"></i> 修改密码</a></li>
                             <li><a href="/admin/loginout"><i class="icon icon-signout"></i> 退出登录</a></li>
                         </ul>

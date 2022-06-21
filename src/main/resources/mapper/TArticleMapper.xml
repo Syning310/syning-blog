@@ -19,6 +19,34 @@
 
 
 <!--
+        IPage<ArticleVO> articleListByArticleTypeId(@Param("articlePage") IPage<ArticleVO> articlePage,
+                                                    @Param("articleTypeId") Integer articleTypeId );
+-->
+<!--    <select id="articleListByArticleTypeId" resultMap="BaseArticleVO">-->
+<!--        SELECT art.article_id, art.user_id, art.article_title, art.article_add_time,-->
+<!--               art.article_centext, art.article_good_number, art.article_look_number,-->
+<!--               art.article_collection_number, art.article_type_id, u.user_name, arttype.article_type_name-->
+
+<!--        FROM t_article AS art-->
+<!--                 LEFT JOIN `t_article_type` AS arttype ON art.article_type_id = arttype.article_type_id-->
+<!--                 LEFT JOIN `t_user` u ON u.user_id = art.user_id-->
+
+<!--        <where>-->
+<!--            <if test="articleTypeId != null">-->
+<!--                art.article_type_id = #{articleTypeId}-->
+<!--            </if>-->
+
+<!--        </where>-->
+
+<!--        ORDER BY art.article_add_time DESC-->
+<!--    </select>-->
+
+
+
+
+
+
+<!--
     /**
      *  根据 articleVO 修改
      * @param articleVO
@@ -82,6 +110,9 @@
         <where>
             <if test="articleTitle != null and articleTitle != '' ">
                 and art.article_title like concat('%', #{articleTitle}, '%')
+            </if>
+            <if test="articleTypeId != null">
+                and art.article_type_id = #{articleTypeId}
             </if>
         </where>
 

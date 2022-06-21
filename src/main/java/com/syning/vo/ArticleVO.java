@@ -23,7 +23,6 @@ public class ArticleVO implements Serializable {
     /**
      * 文章id
      */
-    @TableId(value = "article_id", type = IdType.AUTO)
     private Integer articleId;
 
     /**

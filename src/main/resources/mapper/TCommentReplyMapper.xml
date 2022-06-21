@@ -2,4 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syning.mapper.TCommentReplyMapper">
 
+
+
+    <resultMap id="BaseReply" type="com.syning.vo.ReplyVO">
+        <id column="comment_reply_id" property="commentReplyId" jdbcType="INTEGER"></id>
+        <result column="comment_id" property="commentId" jdbcType="INTEGER"></result>
+        <result column="comment_user_id" property="commentUserId" jdbcType="INTEGER"></result>
+        <result column="reply_user_id" property="replyUserId" jdbcType="INTEGER"></result>
+        <result column="comment_user_name" property="commentUserName" jdbcType="INTEGER"></result>
+        <result column="reply_user_name" property="replyUserName" jdbcType="INTEGER"></result>
+        <result column="reply_content" property="replyContent" jdbcType="INTEGER"></result>
+        <result column="comment_reply_add_time" property="commentReplyAddTime" jdbcType="INTEGER"></result>
+    </resultMap>
+
+
+
+<!--
+        List<ReplyVO> getReplyVOList(Integer commentId);
+-->
+    <select id="getReplyVOList" resultMap="BaseReply">
+
+        SELECT trep.comment_reply_id, trep.comment_id, trep.comment_user_id, trep.reply_user_id,
+
+            (SELECT user_name FROM t_user u WHERE u.user_id = trep.comment_user_id) AS comment_user_name,
+
+            (SELECT user_name FROM t_user u WHERE u.user_id = trep.reply_user_id) AS reply_user_name,
+
+                trep.reply_content, trep.comment_reply_add_time
+        FROM t_comment_reply trep LEFT JOIN t_comment cmt ON trep.comment_id = cmt.comment_id
+
+        <where>
+            <if test="CommentId != null">
+                cmt.comment_id = #{commentId}
+            </if>
+        </where>
+
+
+    </select>
+
+
 </mapper>

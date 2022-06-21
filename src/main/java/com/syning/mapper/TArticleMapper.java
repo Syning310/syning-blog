@@ -24,12 +24,15 @@ public interface TArticleMapper extends BaseMapper<TArticle> {
     boolean updateByArticleVO(ArticleVO articleVO);
 
 
+
     /**
      *  文章列表
      * @param articlePage
      * @param articleTitle
      */
-    IPage<ArticleVO> articleList(@Param("articlePage") IPage<ArticleVO> articlePage, @Param("articleTitle") String articleTitle);
+    IPage<ArticleVO> articleList(@Param("articlePage") IPage<ArticleVO> articlePage,
+                                 @Param("articleTitle") String articleTitle,
+                                 @Param("articleTypeId") Integer articleTypeId);
 
     /**
      *  保存
@@ -46,5 +49,14 @@ public interface TArticleMapper extends BaseMapper<TArticle> {
      */
     ArticleVO getArticleVO(Integer articleId);
 
+
+//    /**
+//     *  根据文章类型id获取
+//     * @param articlePage
+//     * @param articleTypeId
+//     * @return
+//     */
+//    IPage<ArticleVO> articleListByArticleTypeId(@Param("articlePage") IPage<ArticleVO> articlePage,
+//                                                @Param("articleTypeId") Integer articleTypeId );
 
 }

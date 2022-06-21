@@ -2,4 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syning.mapper.TCommentMapper">
 
+    <resultMap id="BaseComment" type="com.syning.vo.CommentVO">
+        <id column="comment_id" property="commentId" jdbcType="INTEGER"></id>
+        <result column="article_id" property="articleId" jdbcType="INTEGER"></result>
+        <result column="user_id" property="userId" jdbcType="INTEGER"></result>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"></result>
+        <result column="content" property="content"></result>
+        <result column="comment_time" property="commentTime" jdbcType="DATE"></result>
+        <result column="comment_good_number" property="commentGoodNumber" jdbcType="INTEGER"></result>
+    </resultMap>
+
+
+<!--
+        List<CommentVO> getCommentVOList(Integer articleId);
+-->
+    <select id="getCommentVOList" resultMap="BaseComment">
+
+        SELECT cmt.comment_id, cmt.article_id,
+               cmt.content, cmt.comment_time, cmt.`comment_good_number`,
+               cmt.comment_good_number, usr.user_id, usr.user_name
+        FROM t_comment cmt LEFT JOIN t_user usr ON cmt.`user_id` = usr.`user_id`
+
+        <where>
+
+            <if test="articleId != null">
+                cmt.`article_id` = #{articleId}
+            </if>
+        </where>
+
+
+    </select>
+
+
+
+
 </mapper>

@@ -5,18 +5,21 @@ import cn.hutool.captcha.LineCaptcha;
 import cn.hutool.core.io.resource.ClassPathResource;
 import com.syning.entity.TUser;
 import com.syning.service.ITUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @SpringBootTest
 public class test {
 
@@ -94,5 +97,37 @@ public class test {
         System.out.println(list1);
 
     }
+
+
+
+    @Test
+    public void testDruation() throws InterruptedException {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        Thread.sleep(65000);
+
+        LocalDateTime end = LocalDateTime.now();
+
+        Duration duration = Duration.between(now, end);
+
+        long days = duration.toDays();
+
+        long hours = duration.toHours();
+
+        long minutes = duration.toMinutes();
+
+        long millis = duration.toMillis();
+
+        long nanos = duration.toNanos();
+
+        System.out.println(now);
+        System.out.println(end);
+
+        log.info("now和end相差: {}天， {}小时, {}分钟， {}毫秒， {}纳秒", days, hours, minutes, millis, nanos);
+
+    }
+
+
 
 }

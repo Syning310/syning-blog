@@ -7,6 +7,7 @@ import com.syning.service.ITArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.syning.utils.CommonResult;
 import com.syning.vo.ArticleVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,13 @@ public class TArticleServiceImpl extends ServiceImpl<TArticleMapper, TArticle> i
 
     @Resource
     private TArticleMapper articleMapper;
+
+
+//    public IPage<ArticleVO> articleListByArticleTypeId(IPage<ArticleVO> articlePage,
+//                                                       Integer articleTypeId ) {
+//
+//        return articleMapper.articleListByArticleTypeId(articlePage, articleTypeId);
+//    }
 
 
     @Override
@@ -59,9 +67,14 @@ public class TArticleServiceImpl extends ServiceImpl<TArticleMapper, TArticle> i
     @Override
     public IPage<ArticleVO> articleList(IPage<ArticleVO> articlePage, String articleTitle) {
 
-        IPage<ArticleVO> articleIPage = articleMapper.articleList(articlePage, articleTitle);
+        IPage<ArticleVO> articleIPage = articleMapper.articleList(articlePage, articleTitle, null);
 
         return articleIPage;
     }
 
+
+    @Override
+    public IPage<ArticleVO> articleList(IPage<ArticleVO> articlePage, String articleTitle, Integer articleTypeId) {
+        return articleMapper.articleList(articlePage, articleTitle, articleTypeId);
+    }
 }

@@ -89,24 +89,28 @@ CREATE TABLE `t_article_type` (
 
 # 评论表
 CREATE TABLE `t_comment` (
-             `comment_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '文章评论id',
-             `article_id` INT(11) NOT NULL COMMENT '文章id',
-             `user_id` INT(11) NOT NULL COMMENT '评论人(用户id)',
-             `comment_time` DATETIME DEFAULT NULL COMMENT '评论时间',
-             `comment_good_number` INT(11) NOT NULL DEFAULT '0' COMMENT '点赞次数',
-             PRIMARY KEY (`comment_id`)
-           ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
+                             `comment_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '文章评论id',
+                             `article_id` INT(11) NOT NULL COMMENT '文章id',
+                             `user_id` INT(11) NOT NULL COMMENT '评论人(用户id)',
+                             `content` TEXT NOT NULL COMMENT '评论的内容',
+                             `comment_time` DATETIME DEFAULT NULL COMMENT '评论时间',
+                             `comment_good_number` INT(11) NOT NULL DEFAULT '0' COMMENT '点赞次数',
+                             PRIMARY KEY (`comment_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
+
 
 
 # 回复评论的表
 CREATE TABLE `t_comment_reply` (
-                   `comment_reply_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '评论回复id',
-                   `comment_id` INT(11) NOT NULL COMMENT '针对评论的id',
-                   `comment_user_id` INT(11) NOT NULL COMMENT '被评论的人的id',
-                   `reply_user_id` INT(11) NOT NULL COMMENT '评论用户的id',
-                   `comment_reply_add_time` DATETIME DEFAULT NULL COMMENT '回复的时间',
-                   PRIMARY KEY (`comment_reply_id`)
-                 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
+                                   `comment_reply_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '评论回复id',
+                                   `comment_id` INT(11) NOT NULL COMMENT '针对评论的id',
+                                   `comment_user_id` INT(11) NOT NULL COMMENT '被评论的人的id',
+                                   `reply_user_id` INT(11) NOT NULL COMMENT '评论用户的id',
+                                   `reply_content` TEXT NOT NULL COMMENT '回复评论的评论',
+                                   `comment_reply_add_time` DATETIME DEFAULT NULL COMMENT '回复的时间',
+                                   PRIMARY KEY (`comment_reply_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4
+
 
 
 

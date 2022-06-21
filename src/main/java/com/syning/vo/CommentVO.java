@@ -1,32 +1,20 @@
-package com.syning.entity;
+package com.syning.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
-/**
- * <p>
- *
- * </p>
- *
- * @author jobob
- * @since 2022-06-14
- */
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class TComment implements Serializable {
+public class CommentVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 文章评论id
      */
-    @TableId(value = "comment_id", type = IdType.AUTO)
     private Integer commentId;
 
     /**
@@ -38,6 +26,11 @@ public class TComment implements Serializable {
      * 评论人(用户id)
      */
     private Integer userId;
+
+    /**
+     *  评论用户的 name
+     */
+    private String userName;
 
     /**
      *  评论的内容
@@ -54,5 +47,16 @@ public class TComment implements Serializable {
      */
     private Integer commentGoodNumber;
 
+
+    /**
+     *  该条评论的回复集合
+     */
+    private List<ReplyVO> replyVOList;
+
+
+    /**
+     *  时差
+     */
+    private String timeEquation;
 
 }

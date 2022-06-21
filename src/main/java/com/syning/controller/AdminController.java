@@ -90,7 +90,7 @@ public class AdminController {
         // 废弃session
         session.invalidate();
 
-        return "redirect:/";
+        return "redirect:/admin/login";
     }
 
 

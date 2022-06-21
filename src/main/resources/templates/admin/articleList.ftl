@@ -94,7 +94,7 @@
                                     <a href="javascript:void(0)"><i class="icon-chevron-left"></i></a>
                                 </li>
                             <#else>
-                            <#--                            传入当前页面 -1 的页数         -->
+                            <#--                            传入当前页面 大于1 的页数         -->
                                 <li class="previous" onclick="getNewData('${articleIPage.pageNumber-1}')">
                                     <a href="javascript:void(0)"><i class="icon-chevron-left"></i></a>
                                 </li>

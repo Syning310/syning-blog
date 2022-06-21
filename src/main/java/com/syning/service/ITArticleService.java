@@ -16,6 +16,17 @@ import com.syning.vo.ArticleVO;
  */
 public interface ITArticleService extends IService<TArticle> {
 
+//    /**
+//     *  根据文章类型id，获取所有文章分页
+//     * @param articlePage
+//     * @param articleTypeId
+//     * @return
+//     */
+//    IPage<ArticleVO> articleListByArticleTypeId(IPage<ArticleVO> articlePage,
+//                                                       Integer articleTypeId );
+
+
+
 
     /**
      *  修改信息
@@ -37,6 +48,15 @@ public interface ITArticleService extends IService<TArticle> {
      * @return
      */
     boolean saveArticle(ArticleVO article);
+
+
+    /**
+     *
+     * @param articlePage
+     * @param articleTitle
+     * @return
+     */
+    IPage<ArticleVO> articleList(IPage<ArticleVO> articlePage, String articleTitle, Integer articleTypeId);
 
 
     /**
