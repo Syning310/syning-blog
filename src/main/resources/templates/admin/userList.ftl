@@ -21,6 +21,11 @@
                     <a href="/user/list" class="btn btn-success">查询All&nbsp;</a>
                 </div>
 
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-success" style="margin-left: 550px;"
+                    onclick="openAddModal()">添加用户</button>
+                </div>
+
             </div>
         </form>
 
@@ -155,6 +160,8 @@
         </div>
     </div>
 </#if>
+
+
 <div id="userUpdateModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -203,7 +210,70 @@
 </div>
 
 
+<div id="addUserModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/user/update" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                                class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">修改用户</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputAccount1">用户名:</label>
+                        <input type="text" class="form-control" id="addUserName">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密码:</label>
+                        <input type="password" class="form-control" id="addUserPassword" placeholder=""
+                               name="userPassword">
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="sendUserAdd()">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <script type="text/javascript">
+
+
+    function sendUserAdd() {
+
+        // 获取填入的账号密码，传给后端
+        let userName = $('#addUserName').val();
+        let userPassword = $('#addUserPassword').val();
+
+        if (!checkNotNull(userName) || !checkNotNull(userPassword)) {
+            zuiMsg('请完善信息!');
+            return;
+        }
+
+        $.post('/user/add', {
+            userName: userName,
+            userPassword: userPassword
+        }, rep => {
+            resolveRep(rep);
+        });
+
+    }
+
+
+
+    function openAddModal() {
+        // 打开模态框
+        $('#addUserModal').modal('toggle', 'center');
+    }
+
 
     // 修改模态框点击保存修改，发送数据到后端修改数据
     function userUpdate() {

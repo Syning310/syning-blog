@@ -100,11 +100,11 @@
 
                     <p class="lead" style="margin-top: 20px;">
                         <a href="/article/view/${(article.articleId)!}" style="color: black;"
-                           href="">${(article.articleTitle)}</a>
+                           href="">${(article.articleTitle)!}</a>
                     </p>
 
-                    <p>发布人: ${article.userName}</p>
-                    <p>发布时间: ${article.articleAddTime}</p>
+                    <p>文章类型: ${article.articleTypeName!}</p>
+                    <p>发布时间: ${(article.articleAddTime)!}</p>
                 </div>
 
 

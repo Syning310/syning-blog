@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -32,6 +33,26 @@ public class UserController {
 
     @Resource
     private ITArticleService articleService;
+
+
+
+    @PostMapping("/add")
+    @ResponseBody
+    public CommonResult addUser(TUser user) {
+
+        // 设置注册时间
+        user.setUserRegisterTime(LocalDateTime.now());
+
+        // 保存
+        boolean saveBool = userService.save(user);
+
+        if (saveBool) {
+            return CommonResult.success("添加成功!");
+        } else {
+            return CommonResult.failed("添加失败!");
+        }
+    }
+
 
 
     /**
@@ -129,7 +150,7 @@ public class UserController {
 
 
         model.addAttribute("userPage", CommonPage.restPage(userIPage));
-        
+
 
         return "admin/userList";
     }
