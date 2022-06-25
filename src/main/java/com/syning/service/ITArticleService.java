@@ -16,17 +16,8 @@ import com.syning.vo.ArticleVO;
  */
 public interface ITArticleService extends IService<TArticle> {
 
-//    /**
-//     *  根据文章类型id，获取所有文章分页
-//     * @param articlePage
-//     * @param articleTypeId
-//     * @return
-//     */
-//    IPage<ArticleVO> articleListByArticleTypeId(IPage<ArticleVO> articlePage,
-//                                                       Integer articleTypeId );
 
-
-
+    boolean isItMins(Integer articleId, String userName);
 
     /**
      *  修改信息

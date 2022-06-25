@@ -86,7 +86,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/admin/login"><i class="icon icon-location-arrow"></i> 登录用户</a></li>
                             <li><a onclick="openRestPwd()"><i class="icon icon-history"></i> 修改密码</a></li>
-                            <li><a href="/admin/loginout"><i class="icon icon-signout"></i> 退出登录</a></li>
+                            <li><a href="/logout"><i class="icon icon-signout"></i> 退出登录</a></li>
                         </ul>
 
                     </li>
@@ -131,6 +131,7 @@
         </div>
     </div>
 
+
     <script type="text/javascript">
         // 打开修改密码模态框
         function openRestPwd() {
@@ -149,23 +150,10 @@
             }
 
             $.post('/admin/resetPassword', {
-                adminName: adminName,
-                adminPassword: adminPassword
+                userName: adminName,
+                userPassword: adminPassword
             }, function (data) {
-                if (rep.code == 200) {
-                    new $.messager(rep.message, {
-                        type: 'success',
-                        placement: 'center'
-                    }).show();
-
-                    // 设置定时器弹出修改成功页面，1秒后再刷新页面
-                    setInterval(function () {
-                        location.reload();
-                    }, 300);
-                    return;
-                } else {
-                    zuiMsg(data.message);
-                }
+                resolveRep(data);
 
             });
 

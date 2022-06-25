@@ -12,6 +12,7 @@ import com.syning.service.ITArticleTypeService;
 import com.syning.utils.CommonResult;
 import com.syning.vo.TArticleTypeVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class ArticleTypeController {
      * @param articleTypeId
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/type/del")
     @ResponseBody
     public CommonResult articleTypeDel(Integer articleTypeId) {
@@ -67,6 +69,7 @@ public class ArticleTypeController {
      * @param articleTypeDTO
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/type/add")
     @ResponseBody
     public CommonResult articleTypeAdd(ArticleTypeDTO articleTypeDTO) {
@@ -93,6 +96,7 @@ public class ArticleTypeController {
      * @param articleTypeDTO
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/type/update")
     @ResponseBody
     public CommonResult articleTypeypeUpdate(ArticleTypeDTO articleTypeDTO) {

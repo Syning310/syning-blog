@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syning.mapper.RoleMapper">
+
+    <resultMap id="BaseRoleMap" type="com.syning.entity.Role">
+        <id column="role_id" property="roleId" jdbcType="INTEGER"></id>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+<!--
+        List<Role> getListByUserId(Integer userId);
+-->
+    <select id="getListByUserId" resultMap="BaseRoleMap">
+        SELECT r.role_id, r.role_name
+        FROM role AS r
+                 LEFT JOIN inner_user_role AS iu
+                 ON r.role_id = iu.role_id
+        WHERE user_id = #{userId}
+    </select>
+
+
+<!--
+       List<Role> getRoleList(String userName);
+-->
+    <select id="getRoleList" resultMap="BaseRoleMap">
+        SELECT re.role_id, re.role_name
+        FROM t_user tur
+                 LEFT JOIN inner_user_role iur ON tur.user_id = iur.user_id
+                 LEFT JOIN role re ON re.role_id = iur.role_id
+        WHERE tur.user_name = #{userName}
+    </select>
+
+
+
+
+</mapper>

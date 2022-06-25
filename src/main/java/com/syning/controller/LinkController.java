@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.syning.entity.TLink;
 import com.syning.service.ITLinkService;
 import com.syning.utils.CommonResult;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,10 @@ public class LinkController {
     private ITLinkService linkService;
 
 
+
     @PostMapping("/del")
     @ResponseBody
+    @Secured({"ROLE_管理员"})
     public CommonResult linkDel(Integer linkId) {
 
         boolean removeBool = linkService.removeById(linkId);
@@ -41,6 +44,7 @@ public class LinkController {
     }
 
 
+    @Secured({"ROLE_管理员"})
     @PostMapping("/addLinkOrUpdate")
     @ResponseBody
     public CommonResult linkAddOrUpdate(TLink link) {

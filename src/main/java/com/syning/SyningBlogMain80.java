@@ -1,7 +1,7 @@
 package com.syning;
 
 
-import com.syning.config.MyConfig;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;

@@ -17,6 +17,16 @@ import org.apache.ibatis.annotations.Param;
 public interface TArticleMapper extends BaseMapper<TArticle> {
 
     /**
+     *  这篇文章是我的吗(是当前登录的主体的吗)
+     * @param articleId
+     * @param userName
+     * @return
+     */
+    Integer isItMins(@Param("articleId") Integer articleId, @Param("userName") String userName);
+
+
+
+    /**
      *  根据 articleVO 修改
      * @param articleVO
      * @return

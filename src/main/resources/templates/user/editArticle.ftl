@@ -44,12 +44,13 @@
         }
 
 
-
-
     </script>
 
 
 </div>
+
+
+
 
 
 <div class="panel col-sm-10">
@@ -62,7 +63,7 @@
 
         <label for="addAdTitle" class="col-sm-1">标题:</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" id="artcileTitle" value="${articleVO.articleTitle}" placeholder="标题">
+            <input type="text" class="form-control" id="articleTitle" value="${articleVO.articleTitle}" placeholder="标题">
         </div>
 
         <label for="exampleInputAccount4" class="col-sm-1">类型:</label>
@@ -72,7 +73,7 @@
                 <option>{-- 无选择 --}</option>
                 <#if typeList?? && typeList?size gt 0>
                     <#list typeList as type>
-                        <option>${type.articleTypeName}</option>
+                        <option>${type.articleTypeName!}</option>
                     </#list>
 
                 <#else>
@@ -80,14 +81,21 @@
                 </#if>
 
             </select>
+
+
         </div>
 
 
     </div>
 
     <script>
-        let articleType = '${articleVO.articleTitle!}';
-        $('#articleType').val(articleType);
+
+        $(function() {
+            let articleTypeName = '${articleVO.articleTypeName!}';
+            console.log(articleTypeName);
+            $("#articleType").val(articleTypeName);
+        })
+
     </script>
 
 
@@ -159,8 +167,10 @@
         // 获取选中的文章类型名称
         let articleTypeName = $('#articleType').val();
 
+        // console.log("articleTypeName = " + articleTypeName);
+
         // 如果选中了无选择，则置为空
-        if (articleTypeName === '{-- 无选择 --}') {
+        if (articleTypeName === '{-- 无选择 --}' || articleTypeName == null || articleTypeName == '') {
             articleTypeName = null;
         }
 

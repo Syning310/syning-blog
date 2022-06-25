@@ -21,25 +21,11 @@ spring:
     # 设置页面缓存
     cache: true
 
-#    settings:
-#      datetime_format: yyyy-MM-dd HH:mm:ss
-#      number_format: 0.##
-#    template-loader-path:      在include标签中会自动写 /templates，注释掉手动写
-#      - classpath:/templates
+
+  profiles:
+    active: dev
 
 
-
-  datasource:
-
-    url: jdbc:mysql://localhost:3306/syning_blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
-    username: root
-    password: syning
-
-#    url: jdbc:mysql://rm-bp12i1d596pb4fdg4ko.mysql.rds.aliyuncs.com:3306/syning_blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL
-#    username: syning
-#    password: Shangyining0310
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:
 

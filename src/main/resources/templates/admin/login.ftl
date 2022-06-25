@@ -10,16 +10,18 @@
                     <label for="adminName" class="col-sm-2">用户名：</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="adminName" maxlength="50" name="adminName"
-                               placeholder="用户名" value="syning">
+                               placeholder="用户名" value="wuxia">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="adminPassword" class="col-sm-2">密码：</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="adminPassword" maxlength="50" name="adminPassword"
+                        <input type="password" class="form-control" id="adminPassword" maxlength="50"
+                               name="adminPassword"
                                placeholder="密码" value="syning">
                     </div>
                 </div>
+
 
                 <div class="form-group">
                     <div class="col-sm-2">
@@ -30,11 +32,11 @@
                         </button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
 </div>
-
 
 
 <script type="text/javascript">
@@ -48,45 +50,19 @@
             return;
         }
 
-
-
-        // const xhr = new XMLHttpRequest();
-        //
-        // xhr.open('POST', 'http://localhost/admin/verify');
-        //
-        // xhr.send('adminName=' + adminName + "&adminPassword=" + adminPassword);
-        //
-        // xhr.onreadystatechange = function() {
-        //     if (xhr.readyState === 4) {
-        //         if (xhr.status >= 200 && xhr.status < 300) {
-        //             // 处理服务返回的结果
-        //             window.location.href = '/';
-        //         } else {
-        //             zuiMsg(xhr.response);
-        //             return;
-        //         }
-        //     } else {
-        //         zuiMsg(xhr.response);
-        //         return;
-        //     }
-        // }
-
-
-
         $.post('/admin/verify', {
-                adminName: adminName,
-                adminPassword: adminPassword
+                user: adminName,
+                password: adminPassword
             },
             function (data) {
-                if (data.code === 200) {
+                if (data.code === '200') {
                     window.location.href = "/";
                     return;
                 } else {
                     zuiMsg(data.message);
                 }
 
-
-        });
+            });
     }
 
 

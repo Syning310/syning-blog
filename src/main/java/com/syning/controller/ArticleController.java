@@ -12,7 +12,10 @@ import com.syning.utils.CommonResult;
 import com.syning.utils.TimeUtils;
 import com.syning.vo.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RequestMapping("/article")
@@ -47,9 +51,15 @@ public class ArticleController {
     @Resource
     private ITCommentReplyService commentReplyService;
 
+    @Resource
+    private ITUserService userService;
+
+    @Resource
+    private RoleService roleService;
 
     /**
-     *  跳转到文章展示页面
+     * 跳转到文章展示页面
+     *
      * @param model
      * @param articleId
      * @return
@@ -93,8 +103,6 @@ public class ArticleController {
         }
 
 
-
-
         model.addAttribute("articleVO", articleVO);
         model.addAttribute("upTagVO", upTagVO);
         model.addAttribute("noTagVO", noTagVO);
@@ -113,6 +121,27 @@ public class ArticleController {
      */
     @GetMapping(value = {"/edit/{articleId}"})
     public String editArticle(Model model, @PathVariable("articleId") Integer articleId) {
+
+        // 获取当前登录的主体，然后判断当前点击点文章id，属不属于当前登录的主体
+        // 注：如果是管理员身份，那么可以直接修改
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // 判断当前登录的用户有无管理员角色，如果没有的话，需要检查这篇文章是不是它的
+        List<Role> roleList = roleService.getListByUserName(user.getUsername());    // 通过用户名获取该用户的角色列表
+
+        // 判断该角色列表中有无 管理员角色，返回 true 说明存在
+        boolean contBool = roleList.contains(new Role(1, "管理员"));
+
+        if (!contBool) {
+            boolean isMinsBool = articleService.isItMins(articleId, user.getUsername());
+
+            // 如果是false，说明这个篇文章不属于当前主体用户
+            if (isMinsBool == false) {
+                model.addAttribute("message", "不能修改别人的文章！");
+                return "redirect:/unauth";
+            }
+        }
+
 
         // 获取所有标签放入模型
         // 根据 articleId 获取文章，放入模型
@@ -197,29 +226,41 @@ public class ArticleController {
         if (articleId != null) {
             // 修改
 
+            // 1、修改文章的类型 article_type_id 和 文章内容 和 文章的标题
             result = articleService.updateByArticleVO(article);
 
             // 根据文章id删除所有与之有关的标签关联
             articleTagListService.remove(Wrappers.<TArticleTagList>lambdaQuery()
                     .eq(TArticleTagList::getArticleId, article.getArticleId()));
 
+            // 修改文章
+
         } else {
 
 
-            // 获取当前登录的用户
-            Admin admin = (Admin) session.getAttribute(AdminController.USER);
+            /**     获取当前的主体
+             *  [Username=wuxia, Password=[PROTECTED], Enabled=true,
+             *  AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true,
+             *  Granted Authorities=[ROLE_普通用户]]
+             */
+            User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-            if (admin == null) {
-                return CommonResult.failed("当前未登录状态，无法发布文章!");
-            }
+            // 获取当前登录的用户的id
+            // 获取当前主体的 id
+            TUser user = userService.getOne(Wrappers.<TUser>lambdaQuery()
+                    .eq(TUser::getUserName, principal.getUsername()));
+
 
             // 设置发布用户的id
-            article.setUserId(admin.getId());
+            article.setUserId(user.getUserId());
             article.setArticleAddTime(LocalDateTime.now());
 
 
+            // 保存文章
             result = articleService.saveArticle(article);
+
         }
+
 
 
         // 将文章与标签关联起来
@@ -264,6 +305,7 @@ public class ArticleController {
      * @param articleId
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @ResponseBody
     @PostMapping("/del")
     public CommonResult articleDel(Integer articleId) {

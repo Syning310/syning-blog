@@ -1,5 +1,15 @@
 
-// LocalDateTime
+// LocalDateTime    时间转换
 LocalDateTime time = LocalDateTime.now();
 System.out.println(time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+
+/**     spring security 获取当前的主体
+ *  [Username=wuxia, Password=[PROTECTED], Enabled=true,
+ *  AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true,
+ *  Granted Authorities=[ROLE_普通用户]]
+ */
+User principal = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
 

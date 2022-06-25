@@ -15,6 +15,7 @@ import com.syning.service.ITUserService;
 import com.syning.utils.CommonPage;
 import com.syning.utils.CommonResult;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,7 @@ public class UserController {
 
 
 
+    @Secured({"ROLE_管理员"})
     @PostMapping("/add")
     @ResponseBody
     public CommonResult addUser(TUser user) {
@@ -60,6 +62,7 @@ public class UserController {
      * @param userDTO
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/update")
     @ResponseBody
     public CommonResult userUpdate(UserDTO userDTO) {
@@ -85,6 +88,7 @@ public class UserController {
      * @param userId
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/del")
     @ResponseBody
     public CommonResult userDel(String userId) {

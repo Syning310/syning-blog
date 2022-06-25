@@ -18,7 +18,15 @@
     </resultMap>
 
 
-
+<!--
+            int isItMins(@Param("articleId") Integer articleId, @Param("userName") String userName);
+-->
+    <select id="isItMins" resultType="integer">
+        SELECT atc.article_id
+        FROM t_article atc LEFT JOIN t_user tur
+        ON atc.user_id = tur.user_id
+        WHERE atc.article_id = #{articleId} AND tur.user_name= #{userName}
+    </select>
 
 
 <!--
@@ -30,8 +38,17 @@
     boolean updateByArticleVO(ArticleVO articleVO);
 -->
     <update id="updateByArticleVO">
-        UPDATE t_article SET article_type_id =
-                                 (SELECT article_type_id FROM t_article_type WHERE article_type_name = #{articleTypeName})
+        UPDATE t_article SET
+            article_type_id =
+            (SELECT article_type_id FROM t_article_type WHERE article_type_name = #{articleTypeName})
+
+        <if test="articleCentext != null">
+            , article_centext = #{articleCentext}
+        </if>
+        <if test="articleTitle != null">
+            , article_title = #{articleTitle}
+        </if>
+
         WHERE t_article.article_id = #{articleId}
 
     </update>

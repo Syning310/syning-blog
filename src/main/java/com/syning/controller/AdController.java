@@ -9,6 +9,7 @@ import com.syning.service.ITAdTypeService;
 import com.syning.utils.CommonResult;
 import com.syning.vo.AdVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class AdController {
     private ITAdService adService;
 
 
+    @Secured({"ROLE_管理员"})
     @PostMapping("/del")
     @ResponseBody
     public CommonResult delAd(@RequestParam("adId") Integer id) {
@@ -47,6 +49,7 @@ public class AdController {
     /**
      * 广告添加或修改
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/addOrUpdate")
     @ResponseBody
     public CommonResult adAddOrUpdate(AdVO adVO,
@@ -97,6 +100,7 @@ public class AdController {
      * @param adTypeId
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/type/del")
     @ResponseBody
     public CommonResult delAdType(Integer adTypeId) {
@@ -124,6 +128,7 @@ public class AdController {
      * @param adType
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/type/addOrUpdate")
     @ResponseBody
     public CommonResult adTypeAddOrUpdate(TAdType adType) {

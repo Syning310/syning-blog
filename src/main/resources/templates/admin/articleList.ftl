@@ -193,7 +193,11 @@
                     location.reload();  // 刷新当前页面
                 }, 500);
                 return;
-            } else {
+            }
+            else if (data.code === '403') {
+                zuiMsg(data.message);
+            }
+            else {
                 zuiMsg(data.message);
             }
         });

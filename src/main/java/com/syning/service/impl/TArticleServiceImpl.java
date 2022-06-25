@@ -28,12 +28,13 @@ public class TArticleServiceImpl extends ServiceImpl<TArticleMapper, TArticle> i
     private TArticleMapper articleMapper;
 
 
-//    public IPage<ArticleVO> articleListByArticleTypeId(IPage<ArticleVO> articlePage,
-//                                                       Integer articleTypeId ) {
-//
-//        return articleMapper.articleListByArticleTypeId(articlePage, articleTypeId);
-//    }
+    @Override
+    public boolean isItMins(Integer articleId, String userName) {
+        // 根据文章id和用户名，查询该文章是不是属于这个用户的，如果返回null，则说明不属于
+        Integer id = articleMapper.isItMins(articleId, userName);
 
+        return id != null;
+    }
 
     @Override
     public boolean updateByArticleVO(ArticleVO articleVO) {

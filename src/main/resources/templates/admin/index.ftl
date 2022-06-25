@@ -103,8 +103,9 @@
                            href="">${(article.articleTitle)!}</a>
                     </p>
 
+                    <p>文章类型: ${article.userName!}</p>
                     <p>文章类型: ${article.articleTypeName!}</p>
-                    <p>发布时间: ${(article.articleAddTime)!}</p>
+                    <p style="font-size: 8px">发布时间: ${(article.articleAddTime)!}</p>
                 </div>
 
 

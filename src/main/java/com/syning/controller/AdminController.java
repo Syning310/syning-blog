@@ -4,18 +4,16 @@ package com.syning.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.syning.entity.Admin;
-import com.syning.service.AdminService;
+import com.syning.entity.TUser;
+import com.syning.service.ITUserService;
 import com.syning.utils.CommonResult;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,28 +22,27 @@ public class AdminController {
     public static final String USER = "user";
 
     @Resource
-    private AdminService adminService;
+    private ITUserService userService;
 
 
     /**
      *  修改密码
-     * @param admin
+     * @param user
      * @return
      */
     @PostMapping("/resetPassword")
     @ResponseBody
-    public CommonResult updatePassword(Admin admin) {
+    public CommonResult updatePassword(TUser user) {
 
-        LambdaQueryWrapper<Admin> eqWrapper = Wrappers.<Admin>lambdaQuery().eq(Admin::getAdminName, admin.getAdminName());
-        List<Admin> admins = adminService.list(eqWrapper);
+        LambdaQueryWrapper<TUser> eqWrapper = Wrappers.<TUser>lambdaQuery().eq(TUser::getUserName, user.getUserName());
 
-        if (admins.isEmpty() || admins.size() == 0) {
+        TUser u = userService.getOne(eqWrapper);
+
+        if (u == null) {
             return CommonResult.failed("用户不存在!!!");
         }
 
-        Admin adm = admins.get(0);
-
-        boolean updateBool = adminService.update(eqWrapper);
+        boolean updateBool = userService.update(user, eqWrapper);
 
         if (updateBool) {
             return CommonResult.success("修改成功!");
@@ -55,13 +52,15 @@ public class AdminController {
     }
 
 
+
+
     /**
-     *  登录验证
+     *  登录验证，现在登录验证交给 Spring Security 处理了
      * @param session
      * @param admin
      * @return
      */
-    @PostMapping("/verify")
+    /*@PostMapping("/verify")
     @ResponseBody
     public CommonResult verify(HttpSession session, Admin admin) {
 
@@ -76,7 +75,10 @@ public class AdminController {
         }
 
 
-    }
+    }*/
+
+
+
 
 
     /**
@@ -84,7 +86,7 @@ public class AdminController {
      * @param session
      * @return
      */
-    @GetMapping("/loginout")
+    //@GetMapping("/loginout")
     public String logout(HttpSession session) {
 
         // 废弃session

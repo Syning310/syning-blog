@@ -9,6 +9,7 @@ import com.syning.service.ITArticleTagListService;
 import com.syning.service.ITArticleTagService;
 import com.syning.utils.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class ArticleTagController {
      * @param articleTagId  根据 id 删除
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/tag/del")
     @ResponseBody
     public CommonResult articleTagDel(Integer articleTagId) {
@@ -64,6 +66,7 @@ public class ArticleTagController {
      * @param articleTag    根据 id 修改
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/tag/update")
     @ResponseBody
     public CommonResult articleTagUpdate(TArticleTag articleTag) {
@@ -83,6 +86,7 @@ public class ArticleTagController {
      * @param articleTag
      * @return
      */
+    @Secured({"ROLE_管理员"})
     @PostMapping("/tag/add")
     @ResponseBody
     public CommonResult articleTagAdd(TArticleTag articleTag) {
